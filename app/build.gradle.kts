@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.ismaelmachado.wifidirect.discovery"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.ismaelmachado.wifidirect.discovery"
         minSdk = 28
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -38,6 +38,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        viewBinding = true
         compose = true
     }
     composeOptions {
@@ -62,6 +63,7 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.fragment)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.databinding.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

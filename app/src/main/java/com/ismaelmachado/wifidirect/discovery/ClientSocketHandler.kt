@@ -10,7 +10,7 @@ import java.net.Socket
 
 class ClientSocketHandler(
     private val handler: Handler,
-    private val mAddress: InetAddress
+    private val address: InetAddress
 ) : Thread() {
 
     companion object {
@@ -24,10 +24,7 @@ class ClientSocketHandler(
         try {
             socket.bind(null)
             socket.connect(
-                InetSocketAddress(
-                    mAddress.hostAddress,
-                    SERVER_PORT
-                ),
+                InetSocketAddress(address.hostAddress, SERVER_PORT),
                 5000
             )
             Log.d(TAG, "Launching the I/O handler")
@@ -36,7 +33,9 @@ class ClientSocketHandler(
         } catch (e: IOException) {
             Log.e(TAG, "IOException", e)
             try {
-                socket.close()
+                if (!socket.isClosed) {
+                    socket.close()
+                }
             } catch (e1: IOException) {
                 Log.e(TAG, "IOException", e1)
             }
