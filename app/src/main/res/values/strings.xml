@@ -15,5 +15,8 @@
     <string name="chat_me_format">%1$s %2$s</string>
     <string name="chat_me">Me:</string>
     <string name="chat_buddy">Buddy: %1$s</string>
+    <string name="unsupported">Unsupported</string>
+    <string name="internal_error">Internal error</string>
+    <string name="busy">Busy</string>
 
 </resources>

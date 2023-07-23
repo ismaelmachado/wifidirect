@@ -1,4 +1,4 @@
-package com.ismaelmachado.wifidirect.discovery
+package com.ismaelmachado.wifidirect.discovery.managers
 
 import android.os.Handler
 import android.util.Log
@@ -13,22 +13,19 @@ import java.net.Socket
  * Handles reading and writing of messages with socket buffers. Uses a Handler
  * to post messages to UI thread for UI updates.
  */
-class ChatManager(
-    private val socket: Socket? = null,
-    private val handler: Handler
-) : Runnable {
+class ChatManager(private val socket: Socket? = null, private val handler: Handler) : Runnable {
 
     companion object {
         private const val TAG = "ChatHandler"
     }
 
-    private var iStream: InputStream? = null
-    private var oStream: OutputStream? = null
+    private var inputStream: InputStream? = null
+    private var outputStream: OutputStream? = null
 
     override fun run() {
         try {
-            iStream = socket?.getInputStream()
-            oStream = socket?.getOutputStream()
+            inputStream = socket?.getInputStream()
+            outputStream = socket?.getOutputStream()
             val buffer = ByteArray(1024)
             var bytes: Int
             handler.obtainMessage(MY_HANDLE, this).sendToTarget()
@@ -36,17 +33,13 @@ class ChatManager(
             while (true) {
                 try {
                     // Read from the InputStream
-                    bytes = iStream?.read(buffer) ?: 0
+                    bytes = inputStream?.read(buffer) ?: -1
                     if (bytes == -1) break
 
                     // Send the obtained bytes to the UI Activity
-                    Log.d(TAG, "Rec:" + buffer.contentToString())
-                    handler.obtainMessage(
-                        MESSAGE_READ,
-                        bytes,
-                        -1,
-                        buffer
-                    ).sendToTarget()
+                    Log.d(TAG, "Rec: %s".format(buffer.contentToString()))
+                    handler.obtainMessage(MESSAGE_READ, bytes, -1, buffer)
+                        .sendToTarget()
                 } catch (e: IOException) {
                     Log.e(TAG, "disconnected", e)
                 }
@@ -62,12 +55,12 @@ class ChatManager(
         }
     }
 
-    fun write(msg: String) {
-        val buffer = msg.toByteArray()
-        val thread: Thread = object : Thread() {
+    fun write(message: String) {
+        val buffer = message.toByteArray()
+        val thread = object : Thread() {
             override fun run() {
                 try {
-                    oStream?.write(buffer)
+                    outputStream?.write(buffer)
                 } catch (e: IOException) {
                     Log.e(TAG, "Exception during write", e)
                 }

@@ -1,16 +1,13 @@
-package com.ismaelmachado.wifidirect.discovery
+package com.ismaelmachado.wifidirect.discovery.adapters
 
 import android.content.Context
-import android.net.wifi.p2p.WifiP2pDevice.AVAILABLE
-import android.net.wifi.p2p.WifiP2pDevice.CONNECTED
-import android.net.wifi.p2p.WifiP2pDevice.FAILED
-import android.net.wifi.p2p.WifiP2pDevice.INVITED
-import android.net.wifi.p2p.WifiP2pDevice.UNAVAILABLE
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.ismaelmachado.wifidirect.discovery.databinding.DeviceItemBinding
+import com.ismaelmachado.wifidirect.discovery.dtos.WiFiP2pServiceDto
+import com.ismaelmachado.wifidirect.discovery.getDeviceStatus
 
 class WiFiDevicesAdapter(
     context: Context,
@@ -20,10 +17,10 @@ class WiFiDevicesAdapter(
 ) : ArrayAdapter<WiFiP2pServiceDto?>(context, resource, textViewResourceId, items) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val binding = if (convertView != null) {
-            DeviceItemBinding.bind(convertView)
-        } else {
+        val binding = if (convertView == null) {
             DeviceItemBinding.inflate(LayoutInflater.from(context), parent, false)
+        } else {
+            DeviceItemBinding.bind(convertView)
         }
         with(items[position]) {
             binding.text1.text = "%s - %s".format(device?.deviceName, instanceName)

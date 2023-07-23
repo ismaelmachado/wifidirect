@@ -1,4 +1,4 @@
-package com.ismaelmachado.wifidirect.discovery
+package com.ismaelmachado.wifidirect.discovery.fragments
 
 import android.os.Bundle
 import android.os.Handler
@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.ismaelmachado.wifidirect.discovery.R
+import com.ismaelmachado.wifidirect.discovery.adapters.ChatMessageAdapter
 import com.ismaelmachado.wifidirect.discovery.databinding.FragmentChatBinding
+import com.ismaelmachado.wifidirect.discovery.managers.ChatManager
 
 /**
  * This fragment handles chat related UI which includes a list view for messages
@@ -15,7 +18,7 @@ import com.ismaelmachado.wifidirect.discovery.databinding.FragmentChatBinding
 class WiFiChatFragment : Fragment() {
 
     interface MessageTarget {
-        val handler: Handler
+        var handler: Handler
     }
 
     private lateinit var binding: FragmentChatBinding

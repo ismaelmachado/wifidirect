@@ -1,4 +1,4 @@
-package com.ismaelmachado.wifidirect.discovery
+package com.ismaelmachado.wifidirect.discovery.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,11 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
 import androidx.fragment.app.Fragment
+import com.ismaelmachado.wifidirect.discovery.R
+import com.ismaelmachado.wifidirect.discovery.adapters.WiFiDevicesAdapter
 import com.ismaelmachado.wifidirect.discovery.databinding.DeviceItemBinding
 import com.ismaelmachado.wifidirect.discovery.databinding.FragmentDevicesListBinding
+import com.ismaelmachado.wifidirect.discovery.dtos.WiFiP2pServiceDto
 
 /**
  * A simple ListFragment that shows the available services as published by the
@@ -17,7 +20,7 @@ import com.ismaelmachado.wifidirect.discovery.databinding.FragmentDevicesListBin
 class DeviceListFragment : Fragment() {
 
     interface DeviceClickListener {
-        fun connectP2p(wifiP2PServiceDto: WiFiP2pServiceDto?)
+        fun connectP2p(serviceDto: WiFiP2pServiceDto?)
     }
 
     private lateinit var binding: FragmentDevicesListBinding

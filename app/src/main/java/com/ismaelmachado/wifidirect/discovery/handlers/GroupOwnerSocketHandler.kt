@@ -1,8 +1,9 @@
-package com.ismaelmachado.wifidirect.discovery
+package com.ismaelmachado.wifidirect.discovery.handlers
 
 import android.os.Handler
 import android.util.Log
 import com.ismaelmachado.wifidirect.discovery.WiFiServiceDiscoveryActivity.Companion.SERVER_PORT
+import com.ismaelmachado.wifidirect.discovery.managers.ChatManager
 import java.io.IOException
 import java.net.ServerSocket
 import java.util.concurrent.LinkedBlockingQueue

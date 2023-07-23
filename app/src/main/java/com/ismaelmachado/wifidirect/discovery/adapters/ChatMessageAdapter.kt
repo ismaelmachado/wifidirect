@@ -1,10 +1,11 @@
-package com.ismaelmachado.wifidirect.discovery
+package com.ismaelmachado.wifidirect.discovery.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import com.ismaelmachado.wifidirect.discovery.R
 import com.ismaelmachado.wifidirect.discovery.databinding.ChatItemBinding
 
 /**
@@ -17,10 +18,10 @@ class ChatMessageAdapter(
 ) : ArrayAdapter<String?>(context, textViewResourceId, items) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val binding = if (convertView != null) {
-            ChatItemBinding.bind(convertView)
-        } else {
+        val binding = if (convertView == null) {
             ChatItemBinding.inflate(LayoutInflater.from(context), parent, false)
+        } else {
+            ChatItemBinding.bind(convertView)
         }
         val message = items[position]
         binding.chatText1.apply {
